@@ -104,7 +104,7 @@ export default function Home() {
                 from === nickname ? (
                   <div
                     key={text}
-                    className="self-end bg-blue-500 w-fit p-2 rounded-lg"
+                    className="max-w-xs self-end bg-blue-500 w-fit p-2 rounded-lg"
                   >
                     {text}
                   </div>
@@ -113,7 +113,7 @@ export default function Home() {
                     <p className="text-slate-500 text-sm">{from}</p>
                     <div
                       key={text}
-                      className="bg-slate-700 w-fit p-2 rounded-lg"
+                      className="max-w-xs bg-slate-700 w-fit p-2 rounded-lg"
                     >
                       {text}
                     </div>
