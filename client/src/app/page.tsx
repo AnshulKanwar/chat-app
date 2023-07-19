@@ -55,7 +55,7 @@ export default function Home() {
     <main className="grow grid place-items-center">
       <div className="h-1/2 min-h-[30rem] w-1/2 min-w-fit max-w-3xl rounded-lg overflow-hidden">
         {!nickname ? (
-          <div className="h-full bg-slate-900 grid place-items-center">
+          <div className="h-full bg-zinc-900 grid place-items-center">
             <div className="text-center">
               <p className="text-xl mb-5">Enter a nickname</p>
               <form
@@ -67,7 +67,7 @@ export default function Home() {
                   placeholder="RemarkableDisaster21"
                   value={nicknameText ?? ""}
                   onChange={(e) => setNicknameText(e.target.value)}
-                  className="rounded-md px-3 py-2 outline-none bg-slate-700"
+                  className="rounded-md px-3 py-2 outline-none bg-zinc-700"
                 />
                 <label
                   htmlFor="nicknameSubmit"
@@ -79,7 +79,7 @@ export default function Home() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-6 h-6 transition group-hover:translate-x-1"
+                    className="w-6 h-6 transition group-hover:tranzinc-x-1"
                   >
                     <path
                       strokeLinecap="round"
@@ -99,7 +99,7 @@ export default function Home() {
           </div>
         ) : (
           <div className="h-full flex flex-col">
-            <div className="grow flex flex-col gap-3 p-5 overflow-scroll bg-slate-900">
+            <div className="grow flex flex-col gap-3 p-5 overflow-scroll bg-zinc-800">
               {messages.map(({ from, text }) =>
                 from === nickname ? (
                   <div
@@ -110,10 +110,10 @@ export default function Home() {
                   </div>
                 ) : (
                   <div key={text}>
-                    <p className="text-slate-500 text-sm">{from}</p>
+                    <p className="text-zinc-500 text-sm">{from}</p>
                     <div
                       key={text}
-                      className="max-w-xs bg-slate-700 w-fit p-2 rounded-lg"
+                      className="max-w-xs bg-zinc-600 w-fit p-2 rounded-lg"
                     >
                       {text}
                     </div>
@@ -123,16 +123,16 @@ export default function Home() {
             </div>
             <form
               onSubmit={onSubmit}
-              className="flex gap-3 bg-slate-800 p-4 items-center"
+              className="flex gap-3 bg-zinc-700 p-4 items-center"
             >
               <input
                 type="text"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Send a message..."
-                className="grow rounded-md px-3 py-2 outline-none bg-slate-700"
+                className="grow rounded-md px-3 py-2 outline-none bg-zinc-600"
               />
-              <label htmlFor="submit" className="text-slate-500 cursor-pointer">
+              <label htmlFor="submit" className="text-zinc-500 cursor-pointer">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
