@@ -30,7 +30,7 @@ export default function Home() {
 
   const onNicknameSubmit = (e: FormEvent) => {
     e.preventDefault();
-    
+
     if (nicknameText) {
       setNickname(nicknameText);
     }
@@ -41,7 +41,7 @@ export default function Home() {
 
     newWs.onmessage = (ev) => {
       console.log(ev.data);
-      setMessages((prev) => [...prev, ev.data]);
+      setMessages((prev) => [...prev, JSON.parse(ev.data) as Message]);
     };
 
     setWs(newWs);
@@ -100,11 +100,26 @@ export default function Home() {
         ) : (
           <div className="h-full flex flex-col">
             <div className="grow flex flex-col gap-3 p-3 bg-slate-900">
-              {messages.map(({ text }) => (
-                <div key={text} className="bg-slate-700 w-fit p-2 rounded-md">
-                  {text}
-                </div>
-              ))}
+              {messages.map(({ from, text }) =>
+                from === nickname ? (
+                  <div
+                    key={text}
+                    className="self-end bg-blue-500 w-fit p-2 rounded-lg"
+                  >
+                    {text}
+                  </div>
+                ) : (
+                  <div key={text}>
+                    <p className="text-slate-500 text-sm">{from}</p>
+                    <div
+                      key={text}
+                      className="bg-slate-700 w-fit p-2 rounded-lg"
+                    >
+                      {text}
+                    </div>
+                  </div>
+                )
+              )}
             </div>
             <form
               onSubmit={onSubmit}
