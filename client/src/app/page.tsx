@@ -1,20 +1,54 @@
-'use client'
+"use client";
 
-import { FormEvent, FormEventHandler, useState } from "react";
+import { useState, FormEvent, useEffect } from "react";
 
 export default function Home() {
-  const [messages, setMessages] = useState([])
+  const [ws, setWs] = useState<WebSocket | null>(null);
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState<string[]>([]);
 
   const onSubmit = (e: FormEvent) => {
-    e.preventDefault()
-  }
+    e.preventDefault();
+    ws?.send(message);
+
+    setMessage("");
+    setMessages(prev => [...prev, message])
+  };
+
+  useEffect(() => {
+    const newWs = new WebSocket("ws://localhost:8080");
+
+    newWs.onmessage = (ev) => {
+      console.log(ev.data);
+      setMessages((prev) => [...prev, ev.data]);
+    };
+
+    setWs(newWs);
+
+    return () => {
+      newWs.close()
+    }
+  }, []);
 
   return (
     <main className="grow grid place-items-center">
       <div className="flex flex-col h-1/2 min-h-[30rem] w-1/2 min-w-fit max-w-3xl rounded-lg overflow-hidden">
-        <div className="grow bg-slate-900"></div>
-        <form onSubmit={onSubmit} className="flex gap-3 bg-slate-800 p-4 items-center">
-          <input type="text" placeholder="Send a message..." className="grow rounded-md px-3 py-2 outline-none bg-slate-700"/>
+        <div className="grow flex flex-col gap-3 p-3 bg-slate-900">
+          {messages.map((message) => (
+            <div key={message} className="bg-slate-700 w-fit p-2 rounded-md">{message}</div>
+          ))}
+        </div>
+        <form
+          onSubmit={onSubmit}
+          className="flex gap-3 bg-slate-800 p-4 items-center"
+        >
+          <input
+            type="text"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Send a message..."
+            className="grow rounded-md px-3 py-2 outline-none bg-slate-700"
+          />
           <label htmlFor="submit" className="text-slate-500 cursor-pointer">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +65,7 @@ export default function Home() {
               />
             </svg>
           </label>
-          <input type="submit" id="submit" value="Send" className="hidden"/>
+          <input type="submit" id="submit" value="Send" className="hidden" />
         </form>
       </div>
     </main>
