@@ -99,7 +99,7 @@ export default function Home() {
           </div>
         ) : (
           <div className="h-full flex flex-col">
-            <div className="grow flex flex-col gap-3 p-3 bg-slate-900">
+            <div className="grow flex flex-col gap-3 p-5 overflow-scroll bg-slate-900">
               {messages.map(({ from, text }) =>
                 from === nickname ? (
                   <div
